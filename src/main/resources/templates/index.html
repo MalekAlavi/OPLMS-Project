@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Home - Course Platform</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/1600x600/?education,students') center/cover no-repeat;
+            color: white;
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .section-padding {
+            padding: 60px 0;
+        }
+    </style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">CoursePlatform</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item" th:if="${loggedIn} and ${userRole} == 'ROLE_USER'">
+                    <a class="nav-link" th:href="@{/course}">Course</a>
+                </li>
+                <li class="nav-item" th:if="${loggedIn} and ${userRole} == 'ROLE_INSTRUCTOR'">
+                    <a class="nav-link" th:href="@{/instructor/course}">Manage Course</a>
+                </li>
+                <!-- Show if user NOT logged in -->
+                <li class="nav-item" th:if="${!loggedIn}">
+                    <a class="nav-link" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item" th:if="${!loggedIn}">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <!-- Show only if user role is ADMIN -->
+                <li class="nav-item" th:if="${loggedIn} and ${userRole} == 'ROLE_ADMIN'">
+                    <a class="nav-link" th:href="@{/category}">Category</a>
+                </li>
+                <li class="nav-item" th:if="${loggedIn} and ${userRole} == 'ROLE_ADMIN'">
+                    <a class="nav-link" th:href="@{/subscription-plans}">Subscription Plan</a>
+                </li>
+                <li class="nav-item" th:if="${loggedIn} and ${userRole} == 'ROLE_USER'">
+                    <a class="nav-link" th:href="@{/user-subscription}">Subscription Plan</a>
+                </li>
+                <li class="nav-item" th:if="${loggedIn} and ${userRole} != 'ROLE_INSTRUCTOR'">
+                    <a class="nav-link" th:href="@{/support-ticket}">Support Ticket</a>
+                </li>
+                <!-- Show if user IS logged in -->
+                <li class="nav-item" th:if="${loggedIn}">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1 class="display-4">Learn and Grow with Our Courses</h1>
+        <p class="lead">Join expert instructors and enhance your skills at your own pace!</p>
+        <!-- Only show if NOT logged in -->
+        <a class="btn btn-warning btn-lg mt-3" th:href="@{/register}" th:if="${!loggedIn}">Get Started</a>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section-padding bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Wide Range of Courses</h5>
+                        <p class="card-text">Explore courses across multiple subjects, tailored to your learning goals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Expert Instructors</h5>
+                        <p class="card-text">Learn from experienced professionals who guide you step by step.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body">
+                        <h5 class="card-title">Flexible Learning</h5>
+                        <p class="card-text">Access courses anytime, anywhere, and learn at your own pace.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="section-padding text-center">
+    <div class="container">
+        <h2>Ready to start learning?</h2>
+        <p>Join CoursePlatform today and unlock your potential!</p>
+        <!-- Only show if NOT logged in -->
+        <a class="btn btn-primary btn-lg mt-3" th:href="@{/register}" th:if="${!loggedIn}">Register Now</a>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4 text-center">
+    &copy; 2026 CoursePlatform. All rights reserved.
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

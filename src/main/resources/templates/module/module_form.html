@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${module != null} ? 'Edit Module' : 'Add Module'">Module Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+    <!-- Back to Home -->
+    <a th:href="@{/}" class="btn btn-secondary mb-3">⬅ Back to Home</a>
+
+    <!-- Back to Modules -->
+    <a th:href="@{/module/{courseId}(courseId=${course.courseId})}" class="btn btn-outline-secondary mb-3 ms-2">
+        ⬅ Back to Modules
+    </a>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h3 class="card-title mb-4"
+                th:text="${module != null} ? 'Edit Module' : 'Add New Module'">
+                Add New Module
+            </h3>
+
+            <p class="text-muted">
+                Course: <strong th:text="${course.name}">Course Name</strong>
+            </p>
+
+            <form method="post"
+                  th:action="${module != null} ?
+                        @{/module/{courseId}/edit/{moduleId}(courseId=${course.courseId}, moduleId=${module.moduleId})} :
+                        @{/module/{courseId}/add(courseId=${course.courseId})}">
+
+                <div class="mb-3">
+                    <label for="title" class="form-label">Module Title</label>
+                    <input type="text"
+                           class="form-control"
+                           id="title"
+                           name="title"
+                           placeholder="Enter module title"
+                           th:value="${module != null} ? ${module.title} : ''"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control"
+                              id="description"
+                              name="description"
+                              rows="4"
+                              placeholder="Enter module description"
+                              required
+                              th:text="${module != null} ? ${module.description} : ''"></textarea>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a class="btn btn-outline-secondary"
+                       th:href="@{/module/{courseId}(courseId=${course.courseId})}">
+                        Cancel
+                    </a>
+
+                    <button type="submit" class="btn btn-success"
+                            th:text="${module != null} ? 'Save Changes' : 'Add Module'">
+                        Add Module
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

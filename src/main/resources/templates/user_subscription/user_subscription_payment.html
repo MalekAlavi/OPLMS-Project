@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Subscribe to Plan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="mb-4">Payment for Subscription</h2>
+
+    <div class="mb-3">
+        <a href="/user-subscription" class="btn btn-secondary">Back to Plans</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title" th:text="${plan.name}">Plan Name</h5>
+            <p class="card-text" th:text="'Price: $' + ${plan.price}">Price</p>
+
+            <form th:action="@{'/user-subscription-payment/' + ${plan.planId}}" method="post">
+                <div class="mb-3">
+                    <label for="cardNumber" class="form-label">Card Number</label>
+                    <input type="text" class="form-control" id="cardNumber" placeholder="Enter card number" required>
+                </div>
+                <div class="mb-3">
+                    <label for="expiry" class="form-label">Expiry Date</label>
+                    <input type="text" class="form-control" id="expiry" placeholder="MM/YY" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cvv" class="form-label">CVV</label>
+                    <input type="text" class="form-control" id="cvv" placeholder="CVV" required>
+                </div>
+
+                <button type="submit" class="btn btn-success">Pay $<span th:text="${plan.price}">$</span></button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

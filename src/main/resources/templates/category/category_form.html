@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${category != null} ? 'Edit Category' : 'Add Category'">Category Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 th:text="${category != null} ? 'Edit Category' : 'Add Category'">Category Form</h2>
+    <form th:action="${category != null} ? @{/edit/category/{id}(id=${category.categoryId})} : @{/add/category}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name"
+                   th:value="${category != null} ? ${category.name} : ''" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required
+                      th:text="${category != null} ? ${category.description} : ''"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success" th:text="${category != null} ? 'Update' : 'Add'">Submit</button>
+        <a href="/category" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

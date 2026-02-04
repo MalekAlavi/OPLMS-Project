@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Lesson Form</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+
+  <!-- Navigation -->
+  <div class="mb-4">
+    <a th:href="@{/}" class="btn btn-secondary me-2">Back to Home</a>
+
+    <a th:href="@{'/lesson/' + ${module.moduleId}}"
+       class="btn btn-outline-dark">
+      Back to Lessons
+    </a>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h3 class="mb-4"
+          th:text="${lesson != null} ? 'Edit Lesson' : 'Add Lesson'">
+        Lesson Form
+      </h3>
+
+      <form th:action="${lesson != null}
+                    ? @{'/lesson/' + ${module.moduleId} + '/edit/' + ${lesson.lessonId}}
+                    : @{'/lesson/' + ${module.moduleId} + '/add'}"
+            method="post">
+
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label">Lesson Title</label>
+          <input type="text"
+                 id="title"
+                 name="title"
+                 class="form-control"
+                 placeholder="Enter lesson title"
+                 required
+                 th:value="${lesson != null} ? ${lesson.title} : ''">
+        </div>
+
+        <!-- Material -->
+        <div class="mb-3">
+          <label for="material" class="form-label">Lesson Material</label>
+          <textarea id="material"
+                    name="material"
+                    class="form-control"
+                    rows="6"
+                    placeholder="Enter lesson material..."
+                    required
+                    th:text="${lesson != null} ? ${lesson.material} : ''"></textarea>
+        </div>
+
+        <button type="submit"
+                class="btn btn-success w-100"
+                th:text="${lesson != null} ? 'Save Changes' : 'Create Lesson'">
+          Submit
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
